@@ -2,7 +2,6 @@ import ApiCall from '../utils/ApiCall'
 import MongoMock from '../utils/mongoose'
 
 beforeAll(async () => {
-  console.log(process.env.NODE_ENV)
   await MongoMock.connect()
 })
 

@@ -16,6 +16,12 @@ class MongoMock {
     })
   }
 
+  async dropDatabase (): Promise<void> {
+    if (this.database) {
+      await this.database.connection.dropDatabase()
+    }
+  }
+
   async disconnect (): Promise<void> {
     if (this.database) {
       await this.database.connection.close()

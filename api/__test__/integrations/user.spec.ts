@@ -1,10 +1,14 @@
 import { assert } from 'chai'
 import ApiCall from '../utils/ApiCall'
 import MongoMock from '../utils/mongoose'
+import UserFaker from '../utils/faker/UserFaker'
 
 beforeAll(async () => {
-  console.log(process.env.NODE_ENV)
   await MongoMock.connect()
+})
+
+beforeEach(async () => {
+  await MongoMock.dropDatabase()
 })
 
 afterAll(async () => {
@@ -12,7 +16,7 @@ afterAll(async () => {
 })
 
 describe('User Resource', () => {
-  it('It should be create an new user', async () => {
+  it('Should be create an new user', async () => {
     const response = await ApiCall
       .post('/users')
       .send({
@@ -23,13 +27,18 @@ describe('User Resource', () => {
       })
 
     assert.equal(response.status, 201)
-    assert.propertyVal(response, 'name', 'David')
-    assert.propertyVal(response, 'bio', 'My bio')
-    assert.propertyVal(response, 'email', 'nascimento32145@gmail.com')
-    assert.propertyVal(response, 'forms', [])
-    assert.property(response, '_id')
-    assert.property(response, 'created_at')
-    assert.property(response, 'update_at')
-    assert.property(response, '_v')
+    assert.propertyVal(response.body, 'name', 'David')
+    assert.propertyVal(response.body, 'bio', 'My bio')
+    assert.propertyVal(response.body, 'email', 'nascimento32145@gmail.com')
+    assert.property(response.body, '_id')
+    assert.property(response.body, 'created_at')
+    assert.property(response.body, 'updated_at')
+    assert.property(response.body, '__v')
+  })
+
+  it('Should be not create a new that already exists', async () => {
+    const user = await UserFaker({
+      email: 'nascimento32145@gmail.com'
+    })
   })
 })

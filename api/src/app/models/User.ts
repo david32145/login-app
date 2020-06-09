@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
-interface User extends mongoose.Document {
+export interface BaseUser {
   name: string
   bio?: string
   email: string
   password_hash: string
   avatar_uri?: string
-  created_at: Date
-  updated_at: Date
+  created_at?: Date
+  updated_at?: Date
 }
 
 const UserModel = new mongoose.Schema({
@@ -37,4 +37,4 @@ const UserModel = new mongoose.Schema({
   }
 })
 
-export default mongoose.model<User>('User', UserModel)
+export default mongoose.model<BaseUser & mongoose.Document>('User', UserModel)
