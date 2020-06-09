@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import User from '../models/User'
+import HashService from '../services/HashService'
 
 interface UserCreate {
   name: string
@@ -19,11 +20,12 @@ class UserController {
         message: 'The user with email already exists'
       })
     }
+    const password_hash = await HashService.make(password)
     const user = await User.create({
       name,
       bio,
       email,
-      password_hash: password,
+      password_hash,
       avatar_uri: avatar_uri || 'http://api.adorable.io/avatars/256/abott@adorable.png'
     })
     user.password_hash = '*****'
