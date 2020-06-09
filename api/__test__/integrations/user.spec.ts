@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 import ApiCall from '../utils/ApiCall'
 import MongoMock from '../utils/mongoose'
-import UserFaker from '../utils/faker/UserFaker'
+import * as UserFaker from '../utils/faker/UserFaker'
 
 beforeAll(async () => {
   await MongoMock.connect()
@@ -37,8 +37,19 @@ describe('User Resource', () => {
   })
 
   it('Should be not create a new that already exists', async () => {
-    const user = await UserFaker({
+    const user = await UserFaker.makeInstance({
       email: 'nascimento32145@gmail.com'
     })
+
+    const newUser = UserFaker.make({
+      email: user.email
+    })
+
+    const response = await ApiCall
+      .post('/users')
+      .send(newUser)
+    assert.equal(response.status, 400)
+    assert.propertyVal(response.body, 'error', 'USER_ALREADY_EXISTS')
+    assert.propertyVal(response.body, 'message', 'The user with email already exists')
   })
 })
