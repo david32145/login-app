@@ -40,7 +40,6 @@ describe('User Resource', () => {
     const user = await UserFaker.makeInstance({
       email: 'nascimento32145@gmail.com'
     })
-
     const newUser = UserFaker.make({
       email: user.email
     })

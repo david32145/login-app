@@ -1,3 +1,4 @@
+import { assert } from 'chai'
 import ApiCall from '../utils/ApiCall'
 import MongoMock from '../utils/mongoose'
 
@@ -13,9 +14,8 @@ describe('Authenticate', () => {
   it('Should be return an jwt token', async () => {
     const response = await ApiCall.post('/auth')
 
-    expect(response.status).toBe(200)
-    expect(response.body).toStrictEqual(expect.objectContaining({
-      token: 'token'
-    }))
+    assert.equal(response.status, 200)
+    assert.property(response.body, 'token')
+    assert.propertyVal(response.body, 'type', 'Bearer')
   })
 })
