@@ -7,6 +7,7 @@ import FormController from './controllers/FormController'
 import AuthMiddleware from './middleware/AuthMiddleware'
 
 import UserValidator from './validators/UserValidator'
+import FormValidator from './validators/FormValidator'
 
 const routes = Router()
 
@@ -18,6 +19,6 @@ routes
 
 routes
   .use(AuthMiddleware.handler)
-  .post('/forms', FormController.store)
+  .post('/forms', FormValidator.validate, FormController.store)
 
 export default routes
