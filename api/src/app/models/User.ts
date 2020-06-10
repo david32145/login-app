@@ -29,7 +29,12 @@ const UserModel = new mongoose.Schema({
   },
   avatar_uri: {
     type: String
-  }
+  },
+  forms: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'Form',
+    select: false
+  }]
 }, {
   timestamps: {
     createdAt: 'created_at',
