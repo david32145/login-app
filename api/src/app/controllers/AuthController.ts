@@ -33,7 +33,7 @@ class AuthController {
     }
 
     const token = await JWTService.sign({
-      id: user!._id || 0
+      id: user!._id
     })
 
     return response.status(200).json({

@@ -4,7 +4,7 @@ import ApiError from '../erros/ApiError'
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'potato'
 
 export interface JWTPayload {
-  id: number
+  id: string
 }
 
 class JWTService {
@@ -23,22 +23,22 @@ class JWTService {
     })
   }
 
-  public verify (token: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      jwt.verify(token, JWT_SECRET_KEY, (err) => {
+  public verify (token: string): Promise<JWTPayload> {
+    return new Promise<JWTPayload>((resolve, reject) => {
+      jwt.verify(token, JWT_SECRET_KEY, (err, payload) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
-            reject(new ApiError(err.name, err.message, 401))
+            reject(new ApiError(err.name, 'NOT_INTERNAL', err.message, 401))
           } else if (err.name === 'JsonWebTokenError') {
-            reject(new ApiError(err.name, err.message, 401))
+            reject(new ApiError(err.name, 'INTERNAL', err.message, 401))
           } else if (err.name === 'NotBeforeError') {
-            reject(new ApiError(err.name, err.message, 401))
+            reject(new ApiError(err.name, 'INTERNAL', err.message, 401))
           } else {
-            reject(new ApiError('JsonWebTokenErro', 'jwt malformed', 401))
+            reject(new ApiError('JsonWebTokenErro', 'INTERNAL', 'jwt malformed', 401))
           }
           return
         }
-        resolve(true)
+        resolve(payload as JWTPayload)
       })
     })
   }
