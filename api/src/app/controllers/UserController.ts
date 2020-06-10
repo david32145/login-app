@@ -26,7 +26,8 @@ class UserController {
       bio,
       email,
       password_hash,
-      avatar_uri: avatar_uri || 'http://api.adorable.io/avatars/256/abott@adorable.png'
+      avatar_uri: avatar_uri || 'http://api.adorable.io/avatars/256/abott@adorable.png',
+      forms: []
     })
     user.password_hash = '*****'
     return response.status(201).json(user.toJSON({}))

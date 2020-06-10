@@ -34,7 +34,7 @@ const FieldSchema = new mongoose.Schema({
   }
 })
 
-type Form = FormBase & mongoose.Document
+export type Form = FormBase & mongoose.Document
 
 const FormSchema = new mongoose.Schema({
   title: {
