@@ -7,12 +7,11 @@ interface UserCreate {
   bio?: string
   email: string
   password: string
-  avatar_uri?: string
 }
 
 class UserController {
   public async store (request: Request<{}, {}, UserCreate>, response: Response): Promise<Response> {
-    const { name, bio, email, password, avatar_uri } = request.body
+    const { name, bio, email, password } = request.body
     const userExists = await User.exists({ email })
     if (userExists) {
       return response.status(400).json({
@@ -26,7 +25,7 @@ class UserController {
       bio,
       email,
       password_hash,
-      avatar_uri: avatar_uri || 'http://api.adorable.io/avatars/256/abott@adorable.png',
+      avatar_uri: 'http://api.adorable.io/avatars/256/abott@adorable.png',
       forms: []
     })
     user.password_hash = '*****'

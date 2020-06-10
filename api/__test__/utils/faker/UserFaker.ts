@@ -25,8 +25,8 @@ export function make (obj: UserFaker) {
   return {
     name: faker.name.findName(),
     email: faker.internet.email(),
-    password: faker.internet.password(),
-    bio: faker.lorem.paragraph(),
+    password: faker.internet.password(7),
+    bio: faker.lorem.sentence(10),
     avatar_uri: faker.internet.avatar(),
     forms: [],
     ...obj

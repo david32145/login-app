@@ -23,7 +23,7 @@ describe('User Resource', () => {
         name: 'David',
         bio: 'My bio',
         email: 'nascimento32145@gmail.com',
-        password: '123'
+        password: '1234567'
       })
 
     assert.equal(response.status, 201)
@@ -47,6 +47,7 @@ describe('User Resource', () => {
     const response = await ApiCall
       .post('/users')
       .send(newUser)
+
     assert.equal(response.status, 400)
     assert.propertyVal(response.body, 'error', 'USER_ALREADY_EXISTS')
     assert.propertyVal(response.body, 'message', 'The user with email already exists')
