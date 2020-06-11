@@ -13,8 +13,8 @@ class UserController {
   public async store (request: Request<{id: string}, {}, FormResponseCreate>, response: Response): Promise<Response> {
     const { responses } = request.body
     const form_id = String(request.params.id)
+    const user_id = request.user_id
 
-    //
     if (!Types.ObjectId.isValid(form_id)) {
       return response.status(404).json({
         error: 'FORM_NOT_FOUND',
@@ -22,7 +22,10 @@ class UserController {
       })
     }
 
-    const form = await Form.findById(form_id)
+    const form = await Form.findOne({
+      _id: form_id,
+      user_id
+    })
     if (!form) {
       return response.status(404).json({
         error: 'FORM_NOT_FOUND',
