@@ -5,7 +5,7 @@ const schema = yup.object().shape({
   title: yup.string()
     .min(3, 'The title must have at least 3 letters')
     .max(30, 'The title must have a maximum of 30 letter')
-    .required('The titlw is required'),
+    .required('The title is required'),
   description: yup.string()
     .min(5, 'The description must have at least 5 letters')
     .max(100, 'The description must have a maximum of 100 letter')
@@ -22,6 +22,8 @@ const schema = yup.object().shape({
       options: yup.array()
         .of(yup.string())
     }))
+    .required('The fields is required')
+    .min(1, 'The form must have at least 1 question')
 })
 
 class FormValidator {
