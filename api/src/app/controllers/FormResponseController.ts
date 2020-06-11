@@ -70,6 +70,23 @@ class UserController {
 
     return response.status(201).json(formResponse.toJSON())
   }
+
+  public async index (request: Request, response: Response): Promise<Response> {
+    const user_id = request.user_id
+    const form_id = String(request.params.id)
+    const form = await Form.findOne({
+      _id: form_id,
+      user_id
+    })
+    const formResponses = await FormResponse.find({
+      form_id
+    })
+
+    return response.status(200).json({
+      form,
+      form_responses: formResponses
+    })
+  }
 }
 
 export default new UserController()
