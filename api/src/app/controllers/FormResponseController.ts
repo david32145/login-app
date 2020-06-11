@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import Form from '../models/Form'
 import FormResponse from '../models/FormResponse'
 import { Types } from 'mongoose'
+import { ValidationError } from 'yup'
+import FormResponseValidator from '../validators/FormResponseValidator'
 
 interface FormResponseCreate {
   responses: Record<string, string>
@@ -19,14 +21,33 @@ class UserController {
       })
     }
 
-    const exists = await Form.exists({ _id: form_id })
-    if (!exists) {
+    const form = await Form.findById(form_id)
+    if (!form) {
       return response.status(404).json({
         error: 'FORM_NOT_FOUND',
         message: 'The form is not found'
       })
     }
 
+    const schema = FormResponseValidator(form.fields)
+
+    try {
+      await schema.validate(responses, {
+        abortEarly: false,
+        stripUnknown: true
+      })
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        return response.status(400).json({
+          error: 'BAD_FIELDS',
+          message: 'The fields was invalid for this form',
+          paths: err.inner.map(err => ({
+            label: err.path,
+            message: err.message
+          }))
+        })
+      }
+    }
     const answers = Object.keys(responses).map(key => ({
       label: key,
       value: responses[key]

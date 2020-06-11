@@ -52,7 +52,7 @@ describe('Form Response', () => {
       Name: 'David',
       Bio: 'An student of programming',
       Genre: 'MALE',
-      'Favorite fruite': 'Banana'
+      'Favorite fruite': 'BANANA'
     }
 
     const response = await ApiCall
@@ -135,5 +135,9 @@ describe('Form Response', () => {
       .set('authorization', `Bearer ${token}`)
 
     assert.equal(response.status, 400)
+    assert.propertyVal(response.body, 'error', 'BAD_FIELDS')
+    assert.propertyVal(response.body, 'message', 'The fields was invalid for this form')
+    assert.isArray(response.body.paths)
+    assert.equal(response.body.paths.length, 3)
   })
 })
