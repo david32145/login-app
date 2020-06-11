@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { FormResponse } from './FormResponse'
 
 type FieldType = 'TEXT_FIELD' | 'TEXT_AREA' | 'SELECT' | 'RADIO'
 
@@ -8,12 +9,13 @@ export interface Field {
   options: string[]
 }
 
-interface FormBase {
+export interface FormBase {
   title: string
   description: string
   theme: string
   user_id: string
   fields: Field []
+  responses?: FormResponse
   created_at?: Date
   updated_at?: Date
 }
@@ -57,7 +59,12 @@ const FormSchema = new mongoose.Schema({
   fields: {
     type: [FieldSchema],
     default: []
-  }
+  },
+  responses: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'FormResponse',
+    select: false
+  }]
 }, {
   timestamps: {
     createdAt: 'created_at',
