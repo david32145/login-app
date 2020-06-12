@@ -23,7 +23,9 @@ export const Container = styled.div`
   .loader {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    border: 5px solid #ffffff;
     border-top: 5px solid #2c3851;
-    animation: ${rotate} 0.3s linear infinite;
+    animation: ${rotate} 0.5s linear infinite;
   }
 `;
