@@ -15,16 +15,28 @@ import logo from "assets/logo.png";
 import { Container } from "./styles";
 
 interface FormSingIn {
+  name: string;
+  bio: string;
   email: string;
   password: string;
 }
 
 const SingInValidator = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, "Name must at be at least 7 letters")
+    .max(30, "Name must at maximum of 30 letters")
+    .required("The name is required"),
+  bio: yup
+    .string()
+    .min(5, "Bio must at be at least 5 letters")
+    .max(100, "Bio must at maximum of 100 letters")
+    .required("The bio is required"),
   email: yup.string().email("Email is invalid").required("Email is required"),
   password: yup
     .string()
     .min(7, "Password must at be at least 7 letters")
-    .max(30, "Password must at maximum of 30 letters")
+    .max(15, "Password must at maximum of 15 letters")
     .required("Password is required"),
 });
 
@@ -61,7 +73,21 @@ const SingInPage: React.FC = () => {
       </div>
       <main>
         <Form onSubmit={handlerSingIn} ref={formRef}>
-          <h2>Sing In</h2>
+          <h2>Join to Form App</h2>
+
+          <TextField
+            className="input-text"
+            name="name"
+            placeholder="john"
+            label="Name"
+          />
+
+          <TextField
+            className="input-text"
+            name="bio"
+            placeholder="An design of UI/UX"
+            label="Bio"
+          />
 
           <TextField
             className="input-text"
@@ -69,6 +95,7 @@ const SingInPage: React.FC = () => {
             placeholder="jonh@test.com"
             label="Email"
           />
+
           <TextField
             className="input-text"
             name="password"
@@ -77,8 +104,11 @@ const SingInPage: React.FC = () => {
             type="password"
           />
 
-          <Button className="btn-sing-in">Sing In</Button>
-          <Link to="/join">Create Account</Link>
+          <Button className="btn-sing-in">Sing Up</Button>
+          <span className="link">
+            Already registered?
+            <Link to="/sing"> Sign in</Link>
+          </span>
         </Form>
         <img className="logo" src={logo} alt="Logo" />
       </main>

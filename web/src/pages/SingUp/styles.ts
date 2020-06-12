@@ -44,30 +44,30 @@ export const Container = styled.div`
       h2 {
         color: #ffffff;
         font-size: 30px;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
       }
 
       .input-text {
         margin-bottom: 30px;
       }
 
-      .btn-sing-in {
-        margin-top: 50px;
-      }
-
-      a {
+      .link {
         display: block;
         text-align: center;
         font-size: 14px;
-        text-decoration: none;
+        color: #ffffff;
         font-weight: 400;
-        color: #6fffe9;
         margin-top: 20px;
+
+        a {
+          color: #6fffe9;
+          text-decoration: none;
+        }
       }
     }
 
     .logo {
-      margin: 50px auto 0;
+      margin: 30px auto 0;
     }
   }
 `;

@@ -25,7 +25,7 @@ const TextField: React.FC<TextFieldProps> = ({
       ref: inputRef.current,
       path: "value",
     });
-  }, [name, inputRef.current]);
+  }, [fieldName, registerField]);
 
   function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (onFocus) {
