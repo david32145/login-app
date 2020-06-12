@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     outline: none;
 
+    box-sizing: border-box;
+
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     --webkit-font-smoothing: antialiased
   }

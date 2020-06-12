@@ -34,7 +34,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 350px;
+    width: 380px;
     padding: 40px;
     background-color: rgba(20, 33, 61, 0.9);
 
