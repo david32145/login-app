@@ -17,6 +17,7 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     animation: fade 0.3s linear;
+    min-width: 280px;
 
     margin-bottom: 15px;
 

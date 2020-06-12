@@ -12,6 +12,9 @@ import Button from "components/Button";
 
 import logo from "assets/logo.png";
 
+import NotificationService from "services/NotificationService";
+import LoginService from "services/LoginService";
+import { ApiError } from "services/ApiServices";
 import { Container } from "./styles";
 
 interface FormSingIn {
@@ -36,9 +39,11 @@ const SingInPage: React.FC = () => {
         abortEarly: false,
       });
       formRef.current?.setErrors({});
-      console.log(data);
+      await LoginService.singIn(data.email, data.password);
+      NotificationService.notity("You logged with successful", "SUCCESS");
     } catch (err) {
       if (err instanceof yup.ValidationError) {
+        NotificationService.notity("Form have bad fields", "DANGER");
         const errors = err.inner.reduce<Record<string, string>>(
           (acc, error) => {
             acc[error.path] = error.message;
@@ -47,6 +52,9 @@ const SingInPage: React.FC = () => {
           {}
         );
         formRef.current?.setErrors(errors);
+      }
+      if (err instanceof ApiError) {
+        NotificationService.notity(err.message, "DANGER");
       }
     }
   };
