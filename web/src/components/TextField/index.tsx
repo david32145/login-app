@@ -19,7 +19,6 @@ const TextField: React.FC<TextFieldProps> = ({
   const labelRef = useRef<HTMLLabelElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { error, defaultValue, fieldName, registerField } = useField(name);
-
   useEffect(() => {
     registerField({
       name: fieldName,

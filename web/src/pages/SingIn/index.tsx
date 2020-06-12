@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { Form } from "@unform/web";
 import { SubmitHandler, FormHandles } from "@unform/core";
 
+import * as yup from "yup";
+
 import undrawForm from "assets/undraw-desing-form.svg";
 
 import TextField from "components/TextField";
@@ -16,10 +18,36 @@ interface FormSingIn {
   password: string;
 }
 
+const SingInValidator = yup.object().shape({
+  email: yup.string().email("Email is invalid").required("Email is required"),
+  password: yup
+    .string()
+    .min(7, "Password must at be at least 7 letters")
+    .max(30, "Password must at maximum of 30 letters")
+    .required("Password is required"),
+});
+
 const SingInPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const handlerSingIn: SubmitHandler<FormSingIn> = (data) => {
-    console.log(data);
+  const handlerSingIn: SubmitHandler<FormSingIn> = async (data) => {
+    try {
+      await SingInValidator.validate(data, {
+        abortEarly: false,
+      });
+      formRef.current?.setErrors({});
+      console.log(data);
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        const errors = err.inner.reduce<Record<string, string>>(
+          (acc, error) => {
+            acc[error.path] = error.message;
+            return acc;
+          },
+          {}
+        );
+        formRef.current?.setErrors(errors);
+      }
+    }
   };
 
   return (
