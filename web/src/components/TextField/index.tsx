@@ -1,21 +1,32 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import { useField } from "@unform/core";
 
 import { Container } from "./styles";
 
 interface TextFieldProps extends React.HTMLProps<HTMLInputElement> {
   label: string;
+  name: string;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
   className,
   label,
+  name,
   onFocus,
   onBlur,
   ...rest
 }) => {
   const labelRef = useRef<HTMLLabelElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const x = false;
+  const { error, defaultValue, fieldName, registerField } = useField(name);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: "value",
+    });
+  }, [name, inputRef.current]);
 
   function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (onFocus) {
@@ -39,13 +50,14 @@ const TextField: React.FC<TextFieldProps> = ({
     <Container className={className}>
       <label ref={labelRef}>{label}</label>
       <input
+        defaultValue={defaultValue}
         ref={inputRef}
         type="text"
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         {...rest}
       />
-      {x && <span>Error</span>}
+      {error && <span>{error}</span>}
     </Container>
   );
 };

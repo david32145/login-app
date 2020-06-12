@@ -11,6 +11,10 @@ const Button = styled.button`
   height: 46px;
   border-radius: 4px;
   cursor: pointer;
+
+  :hover {
+    background-color: #fcb136;
+  }
 `;
 
 export default Button;
