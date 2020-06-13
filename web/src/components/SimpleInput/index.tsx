@@ -9,7 +9,7 @@ const Container = styled.div<{ error?: boolean }>`
     padding: 10px;
     color: #8a909e;
     font-size: 14px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: ${(props) => (props.error ? "1px solid  #FF1C1C" : "none")};
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
 

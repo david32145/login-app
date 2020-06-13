@@ -6,6 +6,8 @@ import Menu from "components/Menu";
 
 import SimpleInput from "components/SimpleInput";
 
+import FieldValue from "components/FieldValue";
+
 import { Container, Header } from "./styles";
 
 const FormNewPage: React.FC = () => {
@@ -13,7 +15,7 @@ const FormNewPage: React.FC = () => {
     <Container>
       <Menu />
       <main>
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={console.log}>
           <Header>
             <h2>New Form</h2>
             <SimpleInput name="title" placeholder="title here..." />
@@ -23,6 +25,7 @@ const FormNewPage: React.FC = () => {
               placeholder="description here..."
             />
           </Header>
+          <FieldValue />
         </Form>
       </main>
     </Container>
