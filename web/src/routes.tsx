@@ -12,6 +12,7 @@ import Loading from "components/Loading";
 
 import SingInPage from "pages/SingIn";
 import SingUpPage from "pages/SingUp";
+import NewFormPage from "pages/Form/New";
 
 const Routes: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -30,6 +31,7 @@ const Routes: React.FC = () => {
       <Switch>
         <Route path="/sign" exact component={SingInPage} />
         <Route path="/join" exact component={SingUpPage} />
+        <Route path="/forms/new" exact component={NewFormPage} />
         <Route path="*">
           <Redirect to="/sign" />
         </Route>
