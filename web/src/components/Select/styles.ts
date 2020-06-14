@@ -24,6 +24,7 @@ export const Container = styled.div`
   }
   ul {
     display: flex;
+    z-index: 5;
     position: absolute;
     top: 40px;
     left: 0;

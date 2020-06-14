@@ -26,7 +26,7 @@ const typeOptions = [
   },
 ];
 
-interface Field {
+export interface Field {
   title: string;
   description: string;
   type: string;
