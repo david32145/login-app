@@ -29,7 +29,10 @@ const Menu: React.FC = () => {
 
       <ul>
         {items.map((item, index) => (
-          <li className={index === selected ? "selected" : undefined}>
+          <li
+            key={item.title}
+            className={index === selected ? "selected" : undefined}
+          >
             <button type="button" onClick={() => handleChangeMenuItem(index)}>
               {item.Icon}
               <span>{item.title}</span>

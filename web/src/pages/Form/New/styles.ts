@@ -6,13 +6,34 @@ export const Container = styled.div`
 
   main {
     display: flex;
+    flex-direction: column;
     flex: 1;
+    overflow: scroll;
     padding: 30px 20px;
     background-color: #f7fdfc;
 
     form {
+      display: flex;
+      flex-direction: column;
       width: 100%;
       height: auto;
+
+      .btn-add {
+        width: 80px;
+        margin-left: auto;
+        margin-top: 20px;
+        text-transform: uppercase;
+      }
+
+      .btn-submit {
+        margin-top: 30px;
+        background-color: #2c3851;
+        text-transform: uppercase;
+      }
+
+      .btn-submit:hover {
+        background-color: #242e42;
+      }
     }
   }
 `;

@@ -4,18 +4,19 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { Container } from "./styles";
 
-interface Option {
+export interface Option {
   label: string;
   value: string;
 }
 
 interface SelectProps {
   options: Option[];
+  value: Option;
+  onChange?: (option: Option) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ options }) => {
+const Select: React.FC<SelectProps> = ({ options, value, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<Option>();
 
   function handleOpenOptions() {
     setOpen((oldOpen) => !oldOpen);
@@ -25,7 +26,9 @@ const Select: React.FC<SelectProps> = ({ options }) => {
 
   function handleChangeOptions(option: Option) {
     setOpen(false);
-    setValue(option);
+    if (onChange) {
+      onChange(option);
+    }
   }
 
   return (
@@ -41,7 +44,9 @@ const Select: React.FC<SelectProps> = ({ options }) => {
       {open && (
         <ul>
           {options.map((option) => (
-            <li onClick={() => handleChangeOptions(option)}>{option.label}</li>
+            <li key={option.value} onClick={() => handleChangeOptions(option)}>
+              {option.label}
+            </li>
           ))}
         </ul>
       )}

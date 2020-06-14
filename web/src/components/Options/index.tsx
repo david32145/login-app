@@ -4,19 +4,32 @@ import { FiXCircle } from "react-icons/fi";
 
 import { Container } from "./styles";
 
-const Options: React.FC = () => {
-  const [options, setOptions] = useState<string[]>([]);
+interface OptionsProps {
+  onNewOptions?: (options: string) => void;
+  onRemoveOption?: (opt: string) => void;
+  options: string[];
+}
+
+const Options: React.FC<OptionsProps> = ({
+  onNewOptions,
+  onRemoveOption,
+  options,
+}) => {
   const [value, setValue] = useState("");
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
-      setOptions([...options, value]);
+      if (onNewOptions) {
+        onNewOptions(value);
+      }
       setValue("");
     }
   }
 
   function handleRemoveOption(opt: string) {
-    setOptions(options.filter((option) => option !== opt));
+    if (onRemoveOption) {
+      onRemoveOption(opt);
+    }
   }
 
   return (
