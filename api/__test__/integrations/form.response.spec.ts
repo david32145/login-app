@@ -39,7 +39,7 @@ describe('Form Response', () => {
       options: ['MALE', 'FEMALE', 'UNDEFINED']
     }, {
       label: 'Favorite fruite',
-      type: 'SELECT',
+      type: 'CHECKBOX',
       options: ['BANANA', 'APPLE', 'ORANGE']
     }]
 
@@ -114,7 +114,7 @@ describe('Form Response', () => {
       options: ['MALE', 'FEMALE', 'UNDEFINED']
     }, {
       label: 'Favorite fruite',
-      type: 'SELECT',
+      type: 'CHECKBOX',
       options: ['BANANA', 'APPLE', 'ORANGE']
     }]
 

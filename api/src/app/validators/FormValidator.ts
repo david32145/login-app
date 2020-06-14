@@ -17,8 +17,9 @@ const schema = yup.object().shape({
       label: yup.string()
         .required('The fields.label is required'),
       type: yup.string()
-        .oneOf(['TEXT_FIELD', 'TEXT_AREA', 'SELECT', 'RADIO'], 'The types is invalid')
+        .oneOf(['TEXT_FIELD', 'TEXT_AREA', 'CHECKBOX', 'RADIO'], 'The types is invalid')
         .required('The fields.type is required'),
+      description: yup.string(),
       options: yup.array()
         .of(yup.string())
     }))

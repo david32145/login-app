@@ -15,6 +15,7 @@ interface Form {
 interface Field {
   label: string;
   type: string;
+  description?: string;
   options: string[];
 }
 
@@ -25,7 +26,7 @@ class FormSerice {
     theme: string,
     fields: Field[]
   ): Promise<Form> {
-    const { data } = await ApiService.post<Form>("/users", {
+    const { data } = await ApiService.post<Form>("/forms", {
       title,
       description,
       theme,

@@ -9,7 +9,7 @@ interface FormCreate {
   fields: Field[]
 }
 
-class UserController {
+class FormController {
   public async store (request: Request<{}, {}, FormCreate>, response: Response): Promise<Response> {
     const { title, description, theme, fields } = request.body
     const form = await Form.create({
@@ -36,4 +36,4 @@ class UserController {
   }
 }
 
-export default new UserController()
+export default new FormController()

@@ -14,6 +14,8 @@ import { Field as FieldModel } from "components/FieldValue";
 import Field from "components/Field";
 
 import FormService from "services/FormService";
+import { ApiError } from "services/ApiServices";
+import NotificationService from "services/NotificationService";
 import { Container, Header } from "./styles";
 
 interface BaseFormSubmit {
@@ -45,9 +47,15 @@ const FormNewPage: React.FC = () => {
       label: value.title,
       type: value.type,
       options: value.options,
+      description: value.description,
     }));
-
-    await FormService.add(title, description, "#2c3851", fieldsMap);
+    try {
+      await FormService.add(title, description, "#2c3851", fieldsMap);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        NotificationService.notity(err.message, "DANGER", 3000);
+      }
+    }
   };
 
   return (

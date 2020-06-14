@@ -1,3 +1,4 @@
+import history from "utils/history";
 import ApiService from "./ApiServices";
 
 interface User {
@@ -25,7 +26,7 @@ class UserSerice {
       email,
       password,
     });
-
+    history.push("sing");
     return data;
   }
 }

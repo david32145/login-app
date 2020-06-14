@@ -37,7 +37,7 @@ describe('Form', () => {
       options: ['MALE', 'FEMALE', 'UNDEFINED']
     }, {
       label: 'Favorite fruite',
-      type: 'SELECT',
+      type: 'CHECKBOX',
       options: ['BANANA', 'APPLE', 'ORANGE']
     }]
 

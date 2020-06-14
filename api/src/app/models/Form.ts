@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { FormResponse } from './FormResponse'
 
-type FieldType = 'TEXT_FIELD' | 'TEXT_AREA' | 'SELECT' | 'RADIO'
+type FieldType = 'TEXT_FIELD' | 'TEXT_AREA' | 'CHECKBOX' | 'RADIO'
 
 export interface Field {
   label: string
@@ -28,8 +28,9 @@ const FieldSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['TEXT_FIELD', 'TEXT_AREA', 'SELECT', 'RADIO']
+    enum: ['TEXT_FIELD', 'TEXT_AREA', 'CHECKBOX', 'RADIO']
   },
+  description: String,
   options: {
     type: [String],
     default: []
