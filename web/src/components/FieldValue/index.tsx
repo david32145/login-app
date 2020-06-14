@@ -42,12 +42,13 @@ interface FieldValueProps {
   onClose: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
+  error?: string;
 }
 
 const FieldValue: React.ForwardRefRenderFunction<
   FieldValueRef,
   FieldValueProps
-> = ({ onClose, onMoveUp, onMoveDown }, ref) => {
+> = ({ onClose, onMoveUp, onMoveDown, error }, ref) => {
   const [option, setOption] = useState<Option>({
     label: "Choice",
     value: "",
@@ -104,6 +105,7 @@ const FieldValue: React.ForwardRefRenderFunction<
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Enter description for this field"
         />
+        <span className="error">{error}</span>
       </div>
       <div className="field-data">
         <Select
@@ -125,7 +127,7 @@ const FieldValue: React.ForwardRefRenderFunction<
         </div>
         <div className="move">
           <FiArrowUp size={18} onClick={onMoveUp} />
-          <FiArrowDown size={18} onClick={onMoveUp} />
+          <FiArrowDown size={18} onClick={onMoveDown} />
         </div>
       </div>
     </FormField>

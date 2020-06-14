@@ -13,7 +13,7 @@ interface FieldProps {
 
 const Field: React.FC<FieldProps> = ({ id, ...rest }) => {
   const fieldRef = useRef<FieldValueRef>(null);
-  const { fieldName, registerField } = useField(id);
+  const { error, fieldName, registerField } = useField(id);
   useEffect(() => {
     registerField({
       name: fieldName,
@@ -27,7 +27,7 @@ const Field: React.FC<FieldProps> = ({ id, ...rest }) => {
     });
   }, [fieldName, registerField]);
 
-  return <FieldValue ref={fieldRef} {...rest} />;
+  return <FieldValue ref={fieldRef} error={error} {...rest} />;
 };
 
 export default Field;

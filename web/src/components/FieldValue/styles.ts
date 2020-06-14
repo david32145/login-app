@@ -41,6 +41,12 @@ export const FormField = styled.div`
       resize: none;
       text-align: justify;
     }
+
+    .error {
+      display: block;
+      font-size: 13px;
+      color: #ff1c1c;
+    }
   }
 
   .field-data {
