@@ -1,4 +1,3 @@
-import history from "utils/history";
 import ApiService from "./ApiServices";
 
 interface AuthResponse {
@@ -16,7 +15,6 @@ class LoginService {
     });
 
     localStorage.setItem(`${LoginService.APP_NAME}/token`, response.data.token);
-    history.push("/forms");
   }
 
   public isLogged(): boolean {

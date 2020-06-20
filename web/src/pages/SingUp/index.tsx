@@ -116,7 +116,7 @@ const SingInPage: React.FC = () => {
           <Button className="btn-sing-in">Sing Up</Button>
           <span className="link">
             Already registered?
-            <Link to="/sing"> Sign in</Link>
+            <Link to="/sign"> Sign in</Link>
           </span>
         </Form>
         <img className="logo" src={logo} alt="Logo" />

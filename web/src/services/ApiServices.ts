@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import LoginService from "./LoginService";
 
 const ApiService = axios.create({
   baseURL: "http://localhost:3333",
@@ -35,12 +34,5 @@ ApiService.interceptors.response.use(
     );
   }
 );
-
-ApiService.interceptors.request.use((request) => {
-  if (LoginService.isLogged()) {
-    request.headers.authorization = `Bearer ${LoginService.getToken()}`;
-  }
-  return request;
-});
 
 export default ApiService;
