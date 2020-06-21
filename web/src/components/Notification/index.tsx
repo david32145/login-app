@@ -1,4 +1,6 @@
 import React, { useImperativeHandle, forwardRef, useState } from "react";
+import { useTransition, animated } from "react-spring";
+
 import crypto from "crypto";
 
 import { FiCheckCircle, FiInfo, FiAlertCircle } from "react-icons/fi";
@@ -51,6 +53,14 @@ const Notification: React.ForwardRefRenderFunction<NotificationRefProps, {}> = (
   ref
 ) => {
   const [notifications, setNotification] = useState<NotificationData[]>([]);
+  const transitions = useTransition(notifications, (item) => item.id, {
+    from: { opacity: 0, transform: "translateX(40px)" },
+    enter: { opacity: 1, transform: "translateX(0px)" },
+    leave: { opacity: 0, transform: "translateX(40px)" },
+    config: {
+      tension: 300,
+    },
+  });
   function notify(title: string, type: NotificationType, duration = 5000) {
     const newNotification: NotificationData = {
       id: crypto.randomBytes(8).toString(),
@@ -59,8 +69,8 @@ const Notification: React.ForwardRefRenderFunction<NotificationRefProps, {}> = (
     };
 
     setTimeout(() => {
-      setNotification((oldNotification) =>
-        oldNotification.filter(
+      setNotification((oldNotifications) =>
+        oldNotifications.filter(
           (notification) => notification.id !== newNotification.id
         )
       );
@@ -79,14 +89,15 @@ const Notification: React.ForwardRefRenderFunction<NotificationRefProps, {}> = (
   return (
     <Container>
       <ul>
-        {notifications.map((notification) => (
-          <li key={notification.id} className="notification">
-            <Icon
-              type={notification.type}
-              color={getColorByType(notification.type)}
-            />
-            <p>{notification.title}</p>
-          </li>
+        {transitions.map(({ item, props: transitionProps }) => (
+          <animated.li
+            style={transitionProps}
+            key={item.id}
+            className="notification"
+          >
+            <Icon type={item.type} color={getColorByType(item.type)} />
+            <p>{item.title}</p>
+          </animated.li>
         ))}
       </ul>
     </Container>

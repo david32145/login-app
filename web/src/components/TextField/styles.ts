@@ -10,6 +10,7 @@ export const Container = styled.div`
     font-weight: 400;
     letter-spacing: 0.1em;
     margin-bottom: 7px;
+    transition: color 0.3s;
   }
 
   input[type="text"],
@@ -22,6 +23,7 @@ export const Container = styled.div`
     padding: 0 5px 7px;
 
     border-bottom: 2px solid #e5e5e5;
+    transition: border 0.3s;
   }
   span {
     display: block;
