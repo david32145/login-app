@@ -7,7 +7,7 @@ import * as yup from "yup";
 
 import undrawForm from "assets/undraw-desing-form.svg";
 
-import TextField from "components/TextField";
+import Field from "components/Form/Field";
 import Button from "components/Button";
 
 import logo from "assets/logo.png";
@@ -40,10 +40,10 @@ const SingInPage: React.FC = () => {
       });
       formRef.current?.setErrors({});
       await LoginService.singIn(data.email, data.password);
-      NotificationService.notity("You logged with successful", "SUCCESS");
+      NotificationService.notity("You logged with successful", "SUCCESS", 1000);
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        NotificationService.notity("Form have bad fields", "DANGER");
+        NotificationService.notity("Form have bad fields", "DANGER", 1500);
         const errors = err.inner.reduce<Record<string, string>>(
           (acc, error) => {
             acc[error.path] = error.message;
@@ -54,7 +54,7 @@ const SingInPage: React.FC = () => {
         formRef.current?.setErrors(errors);
       }
       if (err instanceof ApiError) {
-        NotificationService.notity(err.message, "DANGER");
+        NotificationService.notity(err.message, "DANGER", 1500);
       }
     }
   };
@@ -71,15 +71,16 @@ const SingInPage: React.FC = () => {
         <Form onSubmit={handlerSingIn} ref={formRef}>
           <h2>Sing In</h2>
 
-          <TextField
+          <Field
             className="input-text"
-            name="email"
+            fieldName="email"
+            type="text"
             placeholder="jonh@test.com"
             label="Email"
           />
-          <TextField
+          <Field
             className="input-text"
-            name="password"
+            fieldName="password"
             placeholder="your password"
             label="Password"
             type="password"

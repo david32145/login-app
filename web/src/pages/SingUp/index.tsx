@@ -7,8 +7,9 @@ import * as yup from "yup";
 
 import undrawForm from "assets/undraw-desing-form.svg";
 
-import TextField from "components/TextField";
 import Button from "components/Button";
+
+import Field from "components/Form/Field";
 
 import logo from "assets/logo.png";
 
@@ -52,10 +53,10 @@ const SingInPage: React.FC = () => {
       });
       formRef.current?.setErrors({});
       await UserService.singUp(data.name, data.bio, data.email, data.password);
-      NotificationService.notity("User was created", "SUCCESS");
+      NotificationService.notity("User was created", "SUCCESS", 1000);
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        NotificationService.notity("Form have bad fields", "DANGER");
+        NotificationService.notity("Form have bad fields", "DANGER", 1500);
         const errors = err.inner.reduce<Record<string, string>>(
           (acc, error) => {
             acc[error.path] = error.message;
@@ -67,7 +68,7 @@ const SingInPage: React.FC = () => {
       }
 
       if (err instanceof ApiError) {
-        NotificationService.notity(err.message, "DANGER");
+        NotificationService.notity(err.message, "DANGER", 1500);
       }
     }
   };
@@ -84,33 +85,36 @@ const SingInPage: React.FC = () => {
         <Form onSubmit={handlerSingIn} ref={formRef}>
           <h2>Join to Form App</h2>
 
-          <TextField
+          <Field
             className="input-text"
-            name="name"
+            fieldName="name"
+            type="text"
             placeholder="john"
             label="Name"
           />
 
-          <TextField
+          <Field
             className="input-text"
-            name="bio"
+            fieldName="bio"
+            type="text"
             placeholder="An design of UI/UX"
             label="Bio"
           />
 
-          <TextField
+          <Field
             className="input-text"
-            name="email"
+            fieldName="email"
+            type="text"
             placeholder="jonh@test.com"
             label="Email"
           />
 
-          <TextField
+          <Field
             className="input-text"
-            name="password"
+            fieldName="password"
+            type="password"
             placeholder="your password"
             label="Password"
-            type="password"
           />
 
           <Button className="btn-sing-in">Sing Up</Button>
