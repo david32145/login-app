@@ -16,7 +16,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* animation: fade 0.3s linear; */
     min-width: 280px;
 
     margin-bottom: 15px;
@@ -32,18 +31,6 @@ export const Container = styled.div`
       font-size: 14px;
       font-weight: 400;
       margin-left: 10px;
-    }
-  }
-
-  @keyframes fade {
-    from {
-      opacity: 0;
-      transform: translateY(-50px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) px;
     }
   }
 `;
