@@ -16,7 +16,6 @@ export async function makeInstance (obj: UserFaker) {
     password_hash: password_hash,
     bio: faker.lorem.paragraph(),
     avatar_uri: faker.internet.avatar(),
-    forms: [],
     ...obj
   })
 }
@@ -28,7 +27,6 @@ export function make (obj: UserFaker) {
     password: faker.internet.password(7),
     bio: faker.lorem.sentence(10),
     avatar_uri: faker.internet.avatar(),
-    forms: [],
     ...obj
   }
 }
