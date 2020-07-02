@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 const ApiService = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: process.env.REACT_APP_API_URI,
 });
 
 export class ApiError extends Error {
